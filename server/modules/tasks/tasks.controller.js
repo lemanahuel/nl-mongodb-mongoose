@@ -9,17 +9,42 @@ module.exports = class Tasks {
   }
 
   static list(req, res) {
+    const q = req.query;
+
     TaskModel.find({
+      // //Greater Than or E
+      // createdAt: {
+      //   $gte: new Date(2019, 0, 1),
+      //   $gt: new Date(2018, 0, 1),
+      //   //Lower than or e
+      //   $lte: new Date(2019, 0, 1),
+      //   $lt: new Date(2018, 0, 1)
+      // },
+      // $and: [{
+      //   completed: true,
+      //   enable: true
+      // }, {
       $or: [{
         enable: {
           $exists: false
         }
       }, {
         enable: true
-      }]
-    }).exec((err, docs) => {
-      res.status(200).json(docs);
-    });
+      }],
+      // }],
+      // order: {
+      //   $size: 2
+      // },
+      // $match: {
+      // }
+    }, {
+        limit: parseInt(q.limit) || 2,
+        select: 'title'
+      })
+      .sort('-title')
+      .exec((err, docs) => {
+        res.status(200).json(docs);
+      });
   }
 
   static read(req, res) {
