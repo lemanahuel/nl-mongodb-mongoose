@@ -8,6 +8,10 @@ module.exports = app => {
     .get(TasksController.list);
 
   app
+    .route('/tasks/stats')
+    .get(TasksController.stats);
+
+  app
     .route('/tasks/:id')
     .get(TasksController.read)
     .delete(TasksController.delete);
@@ -15,5 +19,9 @@ module.exports = app => {
   app
     .route('/tasks/:id/title')
     .put(TasksController.updateTitle);
+
+  app
+    .route('/tasks/:id/complete')
+    .put(TasksController.complete);
 
 };

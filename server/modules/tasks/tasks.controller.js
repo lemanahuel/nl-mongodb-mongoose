@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const TaskModel = require('./task.model');
 
 module.exports = class Tasks {
@@ -37,18 +38,18 @@ module.exports = class Tasks {
       // },
       // $match: {
       // }
-    }, {
-        limit: parseInt(q.limit) || 2,
-        select: 'title'
-      })
+    })
+      .limit(parseInt(q.limit) || 2)
+      .select('-title')
       .sort('-title')
+      .lean()
       .exec((err, docs) => {
         res.status(200).json(docs);
       });
   }
 
   static read(req, res) {
-    TaskModel.findById(req.params.id).exec((err, doc) => {
+    TaskModel.findById(req.params.id).lean().exec((err, doc) => {
       res.status(200).json(doc);
     });
 
@@ -63,7 +64,7 @@ module.exports = class Tasks {
   static delete(req, res) {
     TaskModel.findByIdAndUpdate(req.params.id, {
       enable: false
-    }).exec((err, doc) => {
+    }).lean().exec((err, doc) => {
       res.status(200).json(doc);
     });
   }
@@ -73,7 +74,7 @@ module.exports = class Tasks {
       title: req.body.title
     }, {
         new: true
-      }).exec((err, doc) => {
+      }).lean().exec((err, doc) => {
         res.status(200).json(doc);
       });
 
@@ -98,6 +99,34 @@ module.exports = class Tasks {
     //   }).exec((err, docs) => {
     //     console.log(docs);
     //   });
+  }
+
+  static complete(req, res) {
+    //.lean()
+    TaskModel.findById(req.params.id).exec((err, doc) => {
+      doc.completed = true;
+      doc.save((err, doc) => {
+        res.status(200).json(doc);
+      });
+    });
+  }
+
+  static stats(req, res) {
+    TaskModel.find({
+      $or: [{
+        enable: {
+          $exists: false
+        }
+      }, {
+        enable: true
+      }]
+    }).lean().exec((err, docs) => {
+      res.status(200).json({
+        amunts: docs.length,
+        completed: _.filter(docs, doc => doc.completed).length,
+        incompleted: _.filter(docs, doc => !doc.completed).length
+      });
+    });
   }
 
 }

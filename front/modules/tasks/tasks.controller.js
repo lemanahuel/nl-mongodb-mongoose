@@ -94,23 +94,24 @@ $('document').ready(function () {
 
   function updateStats() {
     var stats = {};
-    if (tasks && tasks.length) {
-      stats.amount = tasks.length;
-      stats.completed = tasks.filter(function (item) {
-        return item.completed;
-      }).length;
-      stats.incompleted = tasks.filter(function (item) {
-        return !item.completed;
-      }).length;
-    } else {
-      window.TASKS_SRV.stats().then(function (res) {
-        stats.amount = res.amount;
-        stats.completed = res.completed;
-        stats.incompleted = res.incompleted;
-      });
-    }
-    $('#tasks-amount').text(stats.amount);
-    $('#tasks-amount-completed').text(stats.completed);
-    $('#tasks-amount-incompleted').text(stats.incompleted);
+    // if (tasks && tasks.length) {
+    //   stats.amount = tasks.length;
+    //   stats.completed = tasks.filter(function (item) {
+    //     return item.completed;
+    //   }).length;
+    //   stats.incompleted = tasks.filter(function (item) {
+    //     return !item.completed;
+    //   }).length;
+    // } else {
+
+    // }
+    window.TASKS_SRV.stats().then(function (res) {
+      stats.amunts = res.amunts;
+      stats.completed = res.completed;
+      stats.incompleted = res.incompleted;
+      $('#tasks-amount').text(stats.amunts);
+      $('#tasks-amount-completed').text(stats.completed);
+      $('#tasks-amount-incompleted').text(stats.incompleted);
+    });
   }
 });
