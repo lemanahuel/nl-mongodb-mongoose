@@ -1,3 +1,5 @@
-# Tutorial de Mongodb con mongoose
+# 💻 MongoDB + Mongoose, comenzá a programar hoy! 👊
 
-https://www.udemy.com/programa-hoy-en-mongodb-con-mongoose/
+Desarrollaremos un CRUD completo con una API RestFul en Node + Express para persistir todo en nuestra base de datos
+
+👉 https://www.udemy.com/programa-hoy-en-mongodb-con-mongoose/
