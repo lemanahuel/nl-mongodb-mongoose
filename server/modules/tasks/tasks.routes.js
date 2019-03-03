@@ -11,4 +11,8 @@ module.exports = app => {
     .route('/tasks/:id')
     .get(TasksController.read);
 
+  app
+    .route('/tasks/:id/title')
+    .put(TasksController.updateTitle);
+
 };

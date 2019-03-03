@@ -17,7 +17,7 @@ module.exports = class Tasks {
   }
 
   static read() {
-    TaskModel.findById(req.id).exec((err, doc) => {
+    TaskModel.findById(req.params.id).exec((err, doc) => {
       res.status(200).json(doc);
     });
 
@@ -27,6 +27,39 @@ module.exports = class Tasks {
     // }).exec((err, doc) => {
     //   res.status(200).json(doc);
     // });
+  }
+
+  static updateTitle(req, res) {
+    TaskModel.findByIdAndUpdate(req.params.id, {
+      title: req.body.title
+    }, {
+        new: true
+      }).exec((err, doc) => {
+        res.status(200).json(doc);
+      });
+
+
+    // TaskModel.findOneAndUpdate({
+    //   _id: req.params.id
+    // }, {
+    //   title: req.body.title
+    // }, {
+    //   new: true
+    // }).exec((err, doc) => {
+    //   res.status(200).json(doc);
+    // });
+    // TaskModel.updateOne({
+
+    // });
+    // TaskModel.updateMany({
+    //   title: 'nahuel'
+    // }, {
+    //     title: 'julian'
+    //   }, {
+    //     new: true
+    //   }).exec((err, docs) => {
+    //     console.log(docs);
+    //   });
   }
 
 }
