@@ -27,11 +27,14 @@
   <br>
   <div class="container">
     <div class="row">
-      <div class="col-sm-4 offset-4">
+      <div class="col-sm-6 offset-2">
 
         <form id="form-new-task">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Nueva tarea" id="new-task">
+            <select class="custom-select" id="users-dropdown">
+              <option value="">Usuario</option>
+            </select>
             <div class="input-group-append">
               <button class="btn btn-outline-primary" type="submit">Agregar</button>
             </div>
@@ -60,27 +63,38 @@
   </div>
 
   <script id="task-tpl" type="text/template" style="opacity:0;">
-    <li class="list-group-item" id="<%= task._id %>">
-      <div class="input-group">
-        <input type="text"  class="form-control" value="<%= task.title %>">
-
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary btn-task-status" type="button" >
-            <% if (task.completed) { %>
-              <i class="fas fa-check-circle"></i>
-            <% } else { %>
-              <i class="fa fa-circle"></i>
+      <li class="list-group-item" id="<%= task._id %>">
+        <div class="input-group">
+          <input type="text" class="form-control" value="<%= task.title %>">
+  
+          <div class="input-group-append">
+            <% if (task.user && task.user._id) { %>
+            <button class="btn btn-outline-secondary" type="button" disabled >
+              <%= task.user.name %>
+            </button>
             <% } %>
-          </button>
-          <button class="btn btn-outline-secondary btn-task-remove" type="button">
-            <i class="fas fa-times-circle"></i>
-          </button>
+            <button class="btn btn-outline-secondary btn-task-status" type="button" >
+              <% if (task.completed) { %>
+                <i class="fas fa-check-circle"></i>
+              <% } else { %>
+                <i class="fa fa-circle"></i>
+              <% } %>
+            </button>
+            <button class="btn btn-outline-secondary btn-task-remove" type="button">
+              <i class="fas fa-times-circle"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    </li>
+      </li>
+    </script>
+
+  <script id="user-tpl" type="text/template" style="opacity:0;">
+    <option value="<%= user._id %>"><%= user.name %></option>
   </script>
+
   <script src="libs/jquery.min.js"></script>
   <script src="libs/lodash.min.js"></script>
+  <script src="modules/services/users.service.js"></script>
   <script src="modules/tasks/tasks.service.js"></script>
   <script src="modules/tasks/tasks.controller.js"></script>
 </body>

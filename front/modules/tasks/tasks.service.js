@@ -4,6 +4,7 @@ $('document').ready(function () {
 
   window.TASKS_SRV = {
     create: function (params) {
+      console.log(params.task)
       return $.ajax({
         url: window.API_TASKS,
         method: 'post',

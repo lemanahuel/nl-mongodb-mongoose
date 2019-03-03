@@ -1,6 +1,8 @@
 $('document').ready(function () {
+  var users = [];
   var tasks = [];
   var $list = $('#tasks-list');
+  var $usersDropdown = $('#users-dropdown');
 
   function get(el) {
     var _id = $(el).parents('.list-group-item').attr('id').trim();
@@ -78,11 +80,36 @@ $('document').ready(function () {
 
   listTasks();
 
+  function renderUser(user) {
+    user.$el = _.template(document.getElementById('user-tpl').innerHTML)({
+      user: user
+    });
+    user.$el = $(user.$el);
+    return user;
+  }
+
+  function renderUsers(items) {
+    items = items.map(renderUser);
+    $usersDropdown.append(items.map(function (item) {
+      return item.$el;
+    }));
+    return items;
+  }
+
+  function listUsers() {
+    window.USERS_SRV.list({}).then(function (items) {
+      users = renderUsers(items);;
+    });
+  }
+
+  listUsers();
+
   $('#form-new-task').on('submit', function (e) {
     e.preventDefault();
     window.TASKS_SRV.create({
       task: {
-        title: $('#new-task').val()
+        title: $('#new-task').val(),
+        user: $('#users-dropdown').val()
       }
     }).then(function (task) {
       task = renderTask(task);

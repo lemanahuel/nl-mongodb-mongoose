@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('../users/user.model.js');
 const schema = new mongoose.Schema({
   title: {
     type: String,
@@ -11,6 +12,14 @@ const schema = new mongoose.Schema({
   order: {
     type: Number
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   completed: {
     type: Boolean,
     default: false

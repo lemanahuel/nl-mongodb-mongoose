@@ -5,7 +5,9 @@ module.exports = class Tasks {
 
   static create(req, res) {
     TaskModel.create(req.body, (err, doc) => {
-      res.status(200).json(doc);
+      //res.status(200).json(doc);
+      req.params.id = doc._id;
+      Tasks.read(req, res);
     });
   }
 
@@ -39,9 +41,10 @@ module.exports = class Tasks {
       // $match: {
       // }
     })
-      .limit(parseInt(q.limit) || 2)
-      .select('-title')
-      .sort('-title')
+      // .limit(parseInt(q.limit) || 2)
+      // .select('-title')
+      .sort('-createdAt')
+      .populate('user')
       .lean()
       .exec((err, docs) => {
         res.status(200).json(docs);
@@ -49,9 +52,20 @@ module.exports = class Tasks {
   }
 
   static read(req, res) {
-    TaskModel.findById(req.params.id).lean().exec((err, doc) => {
-      res.status(200).json(doc);
-    });
+    TaskModel.findById(req.params.id)
+      .populate('user')
+      // .populate([{
+      //   path: 'user',
+      //   model: 'User',
+      //   select: 'name',
+      // }, {
+      //   path: 'followers',
+      //   model: 'User',
+      //   select: 'name',
+      // }])
+      .lean().exec((err, doc) => {
+        res.status(200).json(doc);
+      });
 
     // TaskModel.findOne({
     //   _id: req.id,
