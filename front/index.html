@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>CURSO de MONGO con MONGOOSE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- http://fontawesome.com/ -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7"
+    crossorigin="anonymous">
+  <!-- http://getbootstrap.com/ -->
+  <link rel="stylesheet" href="libs/bootstrap.min.css">
+
+  <style>
+    .list-group-item {
+      padding: .75rem .75rem;
+    }
+  </style>
+</head>
+
+<body>
+  <br>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 offset-4">
+
+        <form id="form-new-task">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Nueva tarea" id="new-task">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" type="submit">Agregar</button>
+            </div>
+          </div>
+        </form>
+
+        <hr>
+        <b>Mis tareas</b><br><br>
+
+        <ol id="tasks-list" class="list-group"></ol>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="row">
+          <div class="col-sm-12">
+            <b>Tareas:</b><br><br>
+            <ul>
+              <li>Totales: <b id="tasks-amount"></b></li>
+              <li>Completadas: <b id="tasks-amount-completed"></b></li>
+              <li>Incompletas: <b id="tasks-amount-incompleted"></b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script id="task-tpl" type="text/template" style="opacity:0;">
+    <li class="list-group-item" id="<%= task._id %>">
+      <div class="input-group">
+        <input type="text"  class="form-control" value="<%= task.title %>">
+
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary btn-task-status" type="button" >
+            <% if (task.completed) { %>
+              <i class="fas fa-check-circle"></i>
+            <% } else { %>
+              <i class="fa fa-circle"></i>
+            <% } %>
+          </button>
+          <button class="btn btn-outline-secondary btn-task-remove" type="button">
+            <i class="fas fa-times-circle"></i>
+          </button>
+        </div>
+      </div>
+    </li>
+  </script>
+  <script src="libs/jquery.min.js"></script>
+  <script src="libs/lodash.min.js"></script>
+  <script src="modules/tasks/tasks.service.js"></script>
+  <script src="modules/tasks/tasks.controller.js"></script>
+</body>
+
+</html>
