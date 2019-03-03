@@ -4,6 +4,11 @@ module.exports = app => {
 
   app
     .route('/tasks')
-    .post(TasksController.create);
+    .post(TasksController.create)
+    .get(TasksController.list);
+
+  app
+    .route('/tasks/:id')
+    .get(TasksController.read);
 
 };
