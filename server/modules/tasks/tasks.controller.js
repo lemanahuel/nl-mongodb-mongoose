@@ -3,20 +3,26 @@ const TaskModel = require('./task.model');
 module.exports = class Tasks {
 
   static create(req, res) {
-
     TaskModel.create(req.body, (err, doc) => {
       res.status(200).json(doc);
     });
-
   }
 
   static list(req, res) {
-    TaskModel.find().exec((err, docs) => {
+    TaskModel.find({
+      $or: [{
+        enable: {
+          $exists: false
+        }
+      }, {
+        enable: true
+      }]
+    }).exec((err, docs) => {
       res.status(200).json(docs);
     });
   }
 
-  static read() {
+  static read(req, res) {
     TaskModel.findById(req.params.id).exec((err, doc) => {
       res.status(200).json(doc);
     });
@@ -29,6 +35,14 @@ module.exports = class Tasks {
     // });
   }
 
+  static delete(req, res) {
+    TaskModel.findByIdAndUpdate(req.params.id, {
+      enable: false
+    }).exec((err, doc) => {
+      res.status(200).json(doc);
+    });
+  }
+
   static updateTitle(req, res) {
     TaskModel.findByIdAndUpdate(req.params.id, {
       title: req.body.title
@@ -37,7 +51,6 @@ module.exports = class Tasks {
       }).exec((err, doc) => {
         res.status(200).json(doc);
       });
-
 
     // TaskModel.findOneAndUpdate({
     //   _id: req.params.id

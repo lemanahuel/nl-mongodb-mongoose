@@ -9,7 +9,8 @@ module.exports = app => {
 
   app
     .route('/tasks/:id')
-    .get(TasksController.read);
+    .get(TasksController.read)
+    .delete(TasksController.delete);
 
   app
     .route('/tasks/:id/title')

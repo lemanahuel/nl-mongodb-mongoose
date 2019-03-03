@@ -14,6 +14,10 @@ const schema = new mongoose.Schema({
   completed: {
     type: Boolean,
     default: false
+  },
+  enable: {
+    type: Boolean,
+    default: true
   }
 }, {
     timestamps: true
