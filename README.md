@@ -1,5 +1,16 @@
-# 💻 MongoDB + Mongoose, comenzá a programar hoy! 👊
+## 💻 MONGODB + MONGOOSE, comenzá a programar hoy! 👊
+Desarrollaremos un CRUD completo con una API RestFul con NODE + EXPRESS para persistir todo en MONGODB con Mongoose.
 
-Desarrollaremos un CRUD completo con una API RestFul en Node + Express para persistir todo en nuestra base de datos
+### Curso online en Udemy
 
 👉 https://www.udemy.com/programa-hoy-en-mongodb-con-mongoose/
+
+### Otros de mis cursos:
+
+⭐ https://www.udemy.com/user/nahuellema/
+
+---
+
+### Contacto
+
+👋 [Nahuel Lema](https://www.linkedin.com/in/nahuellema/)
