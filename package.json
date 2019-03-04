@@ -1,7 +1,7 @@
 {
   "name": "c1",
   "version": "1.0.0",
-  "description": "c1",
+  "description": "💻 MongoDB + Mongoose, comenzá a programar hoy! 👊",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +10,15 @@
     "name": "Nahuel Lema",
     "email": "lema.nahuel@gmail.com",
     "url": "https://www.linkedin.com/in/nahuellema/"
+  },
+  "homepage": "https://github.com/lemanahuel/nl-mongodb-mongoose",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lemanahuel/nl-mongodb-mongoose"
+  },
+  "engines": {
+    "node": "11.x.x",
+    "npm": "6.x.x"
   },
   "license": "ISC",
   "dependencies": {
