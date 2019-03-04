@@ -20,7 +20,7 @@
     "node": "11.x.x",
     "npm": "6.x.x"
   },
-  "license": "ISC",
+  "license": "BY-NC-SA",
   "dependencies": {
     "glob": "^7.1.2",
     "express": "^4.16.3",
